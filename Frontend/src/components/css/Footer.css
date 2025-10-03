@@ -8,8 +8,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed; /* Fixed position */
-  bottom: 0; /* Align to the bottom of the viewport */
+  position: sticky;
+  bottom: 0;
   left: 0;
   z-index: 1000; /* Ensure it stays on top of other content */
 }

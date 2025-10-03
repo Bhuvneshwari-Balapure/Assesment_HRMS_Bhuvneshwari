@@ -1,7 +1,8 @@
-/* ApprovalPage.css */
+/* ApprovalPage.css - Mobile First */
 
+/* Base styles (small screens) */
 .approval-main {
-  padding: 20px;
+  padding: 15px;
   text-align: center;
   flex-grow: 1;
   display: flex;
@@ -11,83 +12,157 @@
 }
 
 .approval-content {
-  max-width: 800px;
   width: 100%;
   background: rgba(255, 255, 255, 0.2);
-  padding: 30px;
+  padding: 20px;
   border-radius: 15px;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 
-/* AddEmployeePage.css */
-/* ... existing styles ... */
+.approval-content h2 {
+  margin-bottom: 15px;
+  font-size: 22px;
+}
 
-.add-employee-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
+.filter-container {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.filter-container label {
+  font-weight: 500;
+}
+
+.filter-container select {
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  width: 100%;
+}
+
+.requests-table {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.requests-table table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 400px;
+  font-size: 12px;
+}
+
+.requests-table th,
+.requests-table td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: center;
+}
+
+.requests-table th {
+  background-color: rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+}
+
+.requests-table tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.requests-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.approve-btn,
+.pending-btn {
+  border: none;
+  padding: 4px 6px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  transition: 0.2s all;
+  font-size: 12px;
+}
+
+.approve-btn {
+  background-color: #4caf50;
+}
+
+.approve-btn:hover {
+  background-color: #45a049;
+}
+
+.pending-btn {
+  background-color: #ff9800;
+}
+
+.pending-btn:hover {
+  background-color: #e68a00;
+}
+
+/* Medium screens (tablet) */
+@media (min-width: 480px) {
+  .approval-main {
     padding: 20px;
-    width: 100%; /* Ensure full width */
-    box-sizing: border-box; /* Include padding in width calculation */
+  }
+
+  .approval-content {
+    padding: 25px;
+  }
+
+  .approval-content h2 {
+    font-size: 24px;
+  }
+
+  .requests-table table {
+    font-size: 14px;
+  }
+
+  .approve-btn,
+  .pending-btn {
+    padding: 5px 8px;
+    font-size: 13px;
+  }
+
+  .filter-container {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .filter-container select {
+    width: auto;
+  }
 }
 
-.add-employee-box {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    width: 100%;
-    max-width: 500px;
-    text-align: center;
-    color: #2c3e50;
-}
+/* Large screens (desktop) */
+@media (min-width: 768px) {
+  .approval-main {
+    padding: 30px;
+  }
 
-/* ... existing styles for form elements ... */
+  .approval-content {
+    max-width: 800px;
+    padding: 30px;
+  }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .add-employee-box {
-        padding: 25px;
-    }
-    
-    .add-employee-box h2 {
-        font-size: 28px;
-        margin-bottom: 20px;
-    }
-    
-    .add-emp-btn {
-        max-width: 180px;
-        padding: 12px 20px;
-        font-size: 16px;
-    }
-}
+  .approval-content h2 {
+    font-size: 28px;
+  }
 
-@media (max-width: 480px) {
-    .add-employee-box {
-        padding: 20px;
-    }
-    
-    .add-employee-box h2 {
-        font-size: 24px;
-        margin-bottom: 15px;
-        /* prevent heading from wrapping on two lines */
-        white-space: nowrap; 
-    }
-    
-    .add-employee-form input,
-    .add-employee-form label {
-        font-size: 14px;
-    }
+  .requests-table table {
+    font-size: 16px;
+  }
 
-    .add-emp-btn {
-        max-width: 150px;
-        padding: 10px 15px;
-        font-size: 14px;
-    }
+  .approve-btn,
+  .pending-btn {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
 }
