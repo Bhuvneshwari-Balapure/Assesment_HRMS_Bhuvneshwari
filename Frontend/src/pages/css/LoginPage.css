@@ -1,0 +1,188 @@
+.login-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 30px 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+}
+
+.login-box h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #e74c3c;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+}
+
+.form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%232c3e50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    cursor: pointer;
+}
+
+.password-group {
+    position: relative;
+}
+
+.password-input-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-input-container input {
+    padding-right: 45px;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+    z-index: 10;
+}
+
+.password-toggle-icon:hover {
+    color: #e74c3c;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(45deg, #2c3e50, #34495e);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background: linear-gradient(45deg, #34495e, #2c3e50);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #e74c3c;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #c0392b;
+}
+
+@media (max-width: 768px) {
+    .login-main {
+        padding: 20px 15px;
+    }
+
+    .login-box {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container.login-page-container {
+        padding: 0 !important;
+        overflow-x: hidden;
+    }
+    
+    .login-main {
+        padding: 15px 10px;
+    }
+
+    .login-box {
+        padding: 20px 15px;
+        max-width: 95%;
+        margin: 0 auto;
+    }
+
+    .login-box h2 {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 10px 12px;
+        font-size: 15px;
+    }
+
+    .login-btn {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .forgot-password {
+        margin-top: 15px;
+        font-size: 13px;
+    }
+}

@@ -1,0 +1,106 @@
+/* Footer.css */
+
+.footer {
+  width: 100%;
+  background: rgba(44, 62, 80, 0.9);
+  padding: 10px 0;
+  border-top: 2px solid #e74c3c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* Fixed position */
+  bottom: 0; /* Align to the bottom of the viewport */
+  left: 0;
+  z-index: 1000; /* Ensure it stays on top of other content */
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* NavLink is an anchor tag, so we target a */
+.footer-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 5px;
+  border-radius: 8px;
+  opacity: 0.6; /* Default opacity for non-active icons */
+}
+
+.footer-nav a:hover {
+  opacity: 1;
+}
+
+/* This targets the 'active' class added automatically by NavLink */
+.footer-nav a.active {
+  color: #ff6347; /* Orange color for the active icon */
+  opacity: 1;
+}
+
+.footer-icon {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.footer-text {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Media query for all screen sizes */
+@media (max-width: 768px) {
+  .footer-nav {
+    max-width: 100%; /* Use full width on mobile */
+  }
+}
+
+/* Specific styling for very small mobile screens */
+@media (max-width: 480px) {
+  .footer {
+    padding: 8px 0;
+  }
+
+  .footer-nav {
+    padding: 0 5px;
+  }
+
+  .footer-nav a {
+    font-size: 10px;
+    padding: 3px;
+  }
+
+  .footer-icon {
+    font-size: 20px;
+    margin-bottom: 3px;
+  }
+}
+
+/* Footer.css */
+/* ... existing styles ... */
+
+.footer {
+  width: 100%;
+  background: rgba(44, 62, 80, 0.9);
+  padding: 10px 0;
+  border-top: 2px solid #e74c3c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* Fixed position so it's always visible */
+  bottom: 0; /* Aligned to the bottom */
+  left: 0;
+  z-index: 1000; /* Ensure it stays on top of other content */
+}
+
+/* ... rest of the code is the same ... */

@@ -1,0 +1,24 @@
+SAMPLE Live URL
+https://employee-management-system-hrms.vercel.app/
+
+Creds:
+Dummy, can be created at runtime- Not saving in DB
+
+====================For the Candidate=========================
+Need to share below details:
+Git Repo URL:
+Provide
+
+MongoDB Database Connection String:
+Provide
+
+Credentials (If any):
+
+Remark/Note:
+
+Project Overall Features:
+
+Live URL (if frontend is hosted):  
+
+
+

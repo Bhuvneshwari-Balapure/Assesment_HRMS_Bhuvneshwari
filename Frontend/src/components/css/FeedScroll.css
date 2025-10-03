@@ -1,0 +1,78 @@
+/* FeedScroll.css */
+
+@keyframes scrollUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); } 
+}
+
+.feed-container {
+  text-align: center;
+}
+
+.feed-container h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #34495e;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.feed-container h2::after {
+  content: '';
+  width: 80px;
+  height: 4px;
+  background: #e74c3c;
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.feed-wrapper {
+  height: 300px; /* डेस्कटॉप के लिए फिक्स्ड हाइट */
+  overflow: hidden;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  padding: 10px 0; 
+}
+
+.feed-track {
+  display: flex;
+  flex-direction: column;
+  animation: scrollUp 20s linear infinite;
+}
+
+.feed-item {
+  height: 70px;
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  color: #333;
+  transition: all 0.3s ease;
+  flex-shrink: 0; 
+}
+
+.feed-item:last-child {
+  border-bottom: none; 
+}
+
+.feed-item h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 0 5px 0;
+}
+
+.feed-item p {
+  font-size: 10px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* मोबाइल के लिए मीडिया क्वेरी */
+@media (max-width: 480px) {
+  .feed-wrapper {
+    height: 40vh; /* मोबाइल पर viewport height के हिसाब से एडजस्ट होगा */
+  }
+}
