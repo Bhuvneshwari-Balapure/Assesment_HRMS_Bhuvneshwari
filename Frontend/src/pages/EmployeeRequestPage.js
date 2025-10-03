@@ -38,7 +38,7 @@ const EmployeeRequestPage = () => {
 
     try {
       await axios.post(
-        `${process.env.REACT_APP_API_URL}/employee/request`,
+        `${process.env.REACT_APP_API_URL}/employees/request`,
         { email, type, reason, startDate, endDate, project },
         { headers: { Authorization: `Bearer ${token}` } }
       );

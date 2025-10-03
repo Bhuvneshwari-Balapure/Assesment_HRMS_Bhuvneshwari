@@ -129,6 +129,8 @@ const ManageEmployeePage = () => {
                   <th>First Name</th>
                   <th>Code</th>
                   <th>Dept.</th>
+                  <th>Email</th>
+                  <th>Password</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -139,6 +141,8 @@ const ManageEmployeePage = () => {
                     <td>{getFirstName(emp.name)}</td>
                     <td>{emp.code}</td>
                     <td>{emp.dept}</td>
+                    <td>{emp.email}</td>
+                    <td>{emp.password}</td>
                     <td className="action-buttons">
                       <button
                         className="update-btn"

@@ -16,14 +16,14 @@ const EmployeeDashboardPage = () => {
 
         // Fetch employee info
         const resEmp = await axios.get(
-          `${process.env.REACT_APP_API_URL}/employee/${email}`,
+          `${process.env.REACT_APP_API_URL}/employees/${email}`, // ✅ plural employees
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setEmployee(resEmp.data);
 
-        // Fetch requests
+        // Fetch employee requests (if you have requests API)
         const resReq = await axios.get(
-          `${process.env.REACT_APP_API_URL}/employee/requests/${email}`,
+          `${process.env.REACT_APP_API_URL}/employees/requests/${email}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setRequests(resReq.data);
@@ -77,7 +77,8 @@ const EmployeeDashboardPage = () => {
             <thead>
               <tr>
                 <th>Type</th>
-                <th>Reason</th>
+                <th>Reason / Details</th>
+                <th>Dates / Project</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -85,8 +86,15 @@ const EmployeeDashboardPage = () => {
               {requests.length > 0 ? (
                 requests.map((req, idx) => (
                   <tr key={idx}>
-                    <td>{req.type}</td>
-                    <td>{req.reason}</td>
+                    <td>{req.requestType}</td>
+                    <td>{req.details}</td>
+                    <td>
+                      {req.requestType === "Leave"
+                        ? `${req.startDate?.split("T")[0]} to ${
+                            req.endDate?.split("T")[0]
+                          }`
+                        : req.project || "-"}
+                    </td>
                     <td style={{ color: getStatusColor(req.status) }}>
                       {req.status}
                     </td>
@@ -94,7 +102,7 @@ const EmployeeDashboardPage = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="3">No requests found</td>
+                  <td colSpan="4">No requests found</td>
                 </tr>
               )}
             </tbody>

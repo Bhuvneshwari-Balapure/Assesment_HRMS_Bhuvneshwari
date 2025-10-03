@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const employeeRoutes = require("./Route/EmpRoute");
+const EmpReqRoute = require("./Route/EmpReqRoute");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -14,6 +15,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/employees", employeeRoutes);
+app.use("/api/empReq", EmpReqRoute);
 
 // Connect to MongoDB
 mongoose

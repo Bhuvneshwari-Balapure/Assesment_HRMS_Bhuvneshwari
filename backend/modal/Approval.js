@@ -1,4 +1,3 @@
-// models/Approval.js
 const mongoose = require("mongoose");
 
 const approvalSchema = new mongoose.Schema({
@@ -8,8 +7,11 @@ const approvalSchema = new mongoose.Schema({
     required: true,
   },
   employeeName: { type: String, required: true },
-  requestType: { type: String, required: true }, // e.g., "Leave", "Project Change"
+  requestType: { type: String, required: true },
   details: { type: String },
+  startDate: { type: Date },
+  endDate: { type: Date },
+  project: { type: String },
   status: {
     type: String,
     enum: ["Pending", "Approved", "Rejected"],

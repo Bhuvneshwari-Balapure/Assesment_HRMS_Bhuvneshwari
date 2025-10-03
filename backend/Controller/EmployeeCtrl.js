@@ -1,6 +1,6 @@
 // controllers/employeeController.js
 const Employee = require("../modal/Employee");
-
+const sendMail = require("./mailer");
 // Helper to compute smallest missing EMP number
 const getNextEmpCode = (employees) => {
   const numbers = employees
@@ -31,6 +31,7 @@ exports.getEmployees = async (req, res) => {
 };
 
 // POST /api/employees
+
 exports.addEmployee = async (req, res) => {
   try {
     const { name, doj, dept, proj, email, password } = req.body;
@@ -44,6 +45,9 @@ exports.addEmployee = async (req, res) => {
     const all = await Employee.find({}, { code: 1 }).lean();
     const newCode = getNextEmpCode(all);
 
+    // generate password if not provided
+    const autoPassword = password || Math.random().toString(36).slice(-8);
+
     const employee = new Employee({
       code: newCode,
       name,
@@ -51,15 +55,28 @@ exports.addEmployee = async (req, res) => {
       dept,
       proj,
       email,
-      password: password || Math.random().toString(36).slice(-8), // default auto pw
+      password: autoPassword, // store (hash this if needed!)
       addedBy: "HR",
     });
 
     await employee.save();
+
+    // send email with password
+    await sendMail(
+      email,
+      "Welcome to the Company 🎉",
+      `Hi ${name},\n\nYour account has been created.\nEmployee Code: ${newCode}\nPassword: ${autoPassword}\n\nPlease change your password after first login.`,
+      `<h3>Hi ${name},</h3>
+       <p>Your account has been created successfully.</p>
+       <p><b>Employee Code:</b> ${newCode}</p>
+       <p><b>Employee Email:</b> ${email}</p>
+       <p><b>Password:</b> ${autoPassword}</p>
+       <p>Please Login your Employee account </p>`
+    );
+
     res.status(201).json({ success: true, employee });
   } catch (err) {
     console.error(err);
-    // duplicate email/code handling
     if (err.code === 11000) {
       return res
         .status(400)
@@ -95,5 +112,47 @@ exports.deleteEmployee = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
+// POST employee login
+exports.employeeLogin = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return res
+      .status(400)
+      .json({ success: false, message: "Email & password required" });
+
+  try {
+    const employee = await Employee.findOne({ email });
+    if (!employee)
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid email or password" });
+
+    // NOTE: Use bcrypt.compare in production
+    if (employee.password !== password)
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid email or password" });
+
+    const token = Math.random().toString(36).substring(2, 15); // simple token
+    res.json({ success: true, user: employee, token });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+// GET employee by email
+exports.getEmployeeByEmail = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const emp = await Employee.findOne({ email });
+    if (!emp) return res.status(404).json({ message: "Employee not found" });
+    res.json(emp);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
 };

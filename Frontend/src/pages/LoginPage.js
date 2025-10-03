@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // ✅ Axios import karein
+import axios from "axios"; //
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 import Header from "../components/Header";
@@ -23,49 +23,46 @@ const LoginPage = () => {
       return;
     }
 
+    const apiBaseUrl = process.env.REACT_APP_API_URL; // Use .env
+
     try {
-      // BACKEND LOGIN API CALL
-      const response = await axios.post("http://127.0.0.1:8000/api/login", {
-        email: loginId,
-        password: password,
-      });
+      if (loginAs === "Employee") {
+        // Employee login via backend
+        const response = await axios.post(`${apiBaseUrl}/employees/login`, {
+          email: loginId,
+          password,
+        });
 
-      if (response.data.success) {
-        const user = response.data.user;
-        const token = response.data.token;
+        if (response.data.success) {
+          const user = response.data.user;
+          const token = response.data.token;
 
-        // Backend se mila token use karein
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("role", user.role);
-        localStorage.setItem("email", user.email);
-        localStorage.setItem("authToken", token); // REAL TOKEN
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("role", "Employee");
+          localStorage.setItem("email", user.email);
+          localStorage.setItem("authToken", token);
 
-        login(user.role);
-        alert("Login Successful! (Database)");
-
-        if (user.role === "HR") {
-          navigate("/add-employee");
-        } else {
+          login("Employee");
+          alert("Employee Login Successful!");
           navigate("/employee-dashboard");
         }
+      } else {
+        // HR login - no backend check
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("role", "HR");
+        localStorage.setItem("email", loginId);
+        localStorage.setItem("authToken", "hr-fallback-token-" + Date.now());
+
+        login("HR");
+        alert("HR Login Successful!");
+        navigate("/add-employee");
       }
     } catch (error) {
       console.error("Login Error:", error);
-
-      // Fallback: Frontend login
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("role", loginAs);
-      localStorage.setItem("email", loginId);
-      localStorage.setItem("authToken", "fallback-token-" + Date.now());
-
-      login(loginAs);
-      alert("Login Successful! (Local Mode)");
-
-      if (loginAs === "HR") {
-        navigate("/add-employee");
-      } else {
-        navigate("/employee-dashboard");
-      }
+      alert(
+        error.response?.data?.message ||
+          "Employee login failed. Check your email/password."
+      );
     }
   };
 
@@ -148,79 +145,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
-
-//     if (!loginAs || !loginId.trim() || !password.trim()) {
-//       alert("Please fill in all the required fields.");
-//       return;
-//     }
-
-//     try {
-//       // Backend login API
-//       const response = await axios.post("http://127.0.0.1:8000/api/login", {
-//         email: loginId,
-//         password: password,
-//       });
-
-//       if (response.data.success) {
-//         const user = response.data.user;
-//         const token = response.data.token;
-
-//         // Only allow employee if added by HR
-//         if (loginAs === "Employee") {
-//           const empCheck = await axios.get(
-//             `${process.env.REACT_APP_API_URL}/employees?email=${loginId}`,
-//             { headers: { Authorization: `Bearer ${token}` } }
-//           );
-
-//           if (!empCheck.data || empCheck.data.length === 0) {
-//             alert("Not a registered employee! Please contact HR.");
-//             return;
-//           }
-//         }
-
-//         localStorage.setItem("isLoggedIn", "true");
-//         localStorage.setItem("role", user.role);
-//         localStorage.setItem("email", user.email);
-//         localStorage.setItem("authToken", token);
-
-//         login(user.role);
-//         alert("Login Successful! (Database)");
-
-//         if (user.role === "HR") {
-//           navigate("/add-employee");
-//         } else {
-//           navigate("/employee-dashboard");
-//         }
-//       }
-//     } catch (error) {
-//       console.error("Login Error:", error);
-
-//       // Fallback: Check locally stored employees
-//       if (loginAs === "Employee") {
-//         const employees = JSON.parse(localStorage.getItem("employees") || "[]");
-//         const exists = employees.find((emp) => emp.email === loginId);
-//         if (!exists) {
-//           alert("Not a registered employee! Please contact HR.");
-//           return;
-//         }
-//       }
-
-//       // Save locally
-//       localStorage.setItem("isLoggedIn", "true");
-//       localStorage.setItem("role", loginAs);
-//       localStorage.setItem("email", loginId);
-//       localStorage.setItem("authToken", "fallback-token-" + Date.now());
-
-//       login(loginAs);
-//       alert("Login Successful! (Local Mode)");
-
-//       if (loginAs === "HR") {
-//         navigate("/add-employee");
-//       } else {
-//         navigate("/employee-dashboard");
-//       }
-//     }
-//   };
