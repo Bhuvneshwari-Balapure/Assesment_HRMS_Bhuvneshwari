@@ -33,6 +33,15 @@ const AddEmployeePage = () => {
     password: "",
   });
   const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    if (formData.dept) {
+      setProjects(departmentProjects[formData.dept]);
+    } else {
+      setProjects([]);
+    }
+    setFormData((prev) => ({ ...prev, proj: "" }));
+  }, [formData.dept]);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -53,10 +62,10 @@ const AddEmployeePage = () => {
   }
 
   // Update project dropdown when dept changes
-  useEffect(() => {
-    setProjects(formData.dept ? departmentProjects[formData.dept] : []);
-    setFormData((prev) => ({ ...prev, proj: "" }));
-  }, [formData.dept]);
+  // useEffect(() => {
+  //   setProjects(formData.dept ? departmentProjects[formData.dept] : []);
+  //   setFormData((prev) => ({ ...prev, proj: "" }));
+  // }, [formData.dept]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
