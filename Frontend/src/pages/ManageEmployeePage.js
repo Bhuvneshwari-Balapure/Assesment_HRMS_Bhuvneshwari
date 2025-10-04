@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "./axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./css/ManageEmployeePage.css";
@@ -18,7 +18,7 @@ const ManageEmployeePage = () => {
   const fetchEmployees = async () => {
     try {
       const token = localStorage.getItem("authToken");
-      const res = await axios.get(`${API_URL}/employees`, {
+      const res = await axiosInstance.get(`${API_URL}/employees`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEmployees(res.data);
@@ -63,9 +63,12 @@ const ManageEmployeePage = () => {
   const confirmDelete = async () => {
     try {
       const token = localStorage.getItem("authToken");
-      await axios.delete(`${API_URL}/employees/${editingEmployee._id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axiosInstance.delete(
+        `${API_URL}/employees/${editingEmployee._id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       fetchEmployees();
       setShowDeleteModal(false);
     } catch (err) {
@@ -81,7 +84,7 @@ const ManageEmployeePage = () => {
   const saveEdit = async () => {
     try {
       const token = localStorage.getItem("authToken");
-      await axios.put(
+      await axiosInstance.put(
         `${API_URL}/employees/${editingEmployee._id}`,
         editingEmployee,
         {

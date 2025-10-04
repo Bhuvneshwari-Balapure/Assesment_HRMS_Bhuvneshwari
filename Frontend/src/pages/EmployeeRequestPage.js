@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import axios from "axios";
+import axiosInstance from "./axios";
 import "./css/EmployeeRequestPage.css";
 
 const EmployeeRequestPage = () => {
@@ -17,7 +17,7 @@ const EmployeeRequestPage = () => {
     const fetchProjects = async () => {
       try {
         const token = localStorage.getItem("authToken");
-        const res = await axios.get(
+        const res = await axiosInstance.get(
           `${process.env.REACT_APP_API_URL}/projects`,
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -37,7 +37,7 @@ const EmployeeRequestPage = () => {
     const token = localStorage.getItem("authToken");
 
     try {
-      await axios.post(
+      await axiosInstance.post(
         `${process.env.REACT_APP_API_URL}/employees/request`,
         { email, type, reason, startDate, endDate, project },
         { headers: { Authorization: `Bearer ${token}` } }

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; //
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./css/LoginPage.css";
+import axiosInstance from "./axios";
 
 const LoginPage = () => {
   const [loginAs, setLoginAs] = useState(""); // ✅ State define karein
@@ -28,10 +28,13 @@ const LoginPage = () => {
     try {
       if (loginAs === "Employee") {
         // Employee login via backend
-        const response = await axios.post(`${apiBaseUrl}/employees/login`, {
-          email: loginId,
-          password,
-        });
+        const response = await axiosInstance.post(
+          `${apiBaseUrl}/employees/login`,
+          {
+            email: loginId,
+            password,
+          }
+        );
 
         if (response.data.success) {
           const user = response.data.user;

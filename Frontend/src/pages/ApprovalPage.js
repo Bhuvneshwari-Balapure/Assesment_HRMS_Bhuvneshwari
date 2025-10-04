@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import axios from "axios";
+import axiosInstance from "./axios";
 import "./css/ApprovalPage.css";
 
 const ApprovalPage = () => {
@@ -15,7 +15,7 @@ const ApprovalPage = () => {
       const token = localStorage.getItem("authToken");
       console.log("API URL:", process.env.REACT_APP_API_URL);
 
-      const res = await axios.get(
+      const res = await axiosInstance.get(
         `${process.env.REACT_APP_API_URL}/empReq/approvals`
       );
       setRequests(res.data);
@@ -32,7 +32,7 @@ const ApprovalPage = () => {
   const handleToggleStatus = async (request) => {
     try {
       // const token = localStorage.getItem("authToken");
-      await axios.put(
+      await axiosInstance.put(
         `${process.env.REACT_APP_API_URL}/employees/approvals/${request._id}`,
         { status: "Approved" }
       );

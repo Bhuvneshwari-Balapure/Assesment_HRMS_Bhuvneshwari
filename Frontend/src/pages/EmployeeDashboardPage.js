@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import axios from "axios";
+import axiosInstance from "./axios";
 import "./css/EmployeeDashboardPage.css";
 
 const EmployeeDashboardPage = () => {
@@ -15,14 +15,14 @@ const EmployeeDashboardPage = () => {
         const token = localStorage.getItem("authToken");
 
         // Fetch employee info
-        const resEmp = await axios.get(
+        const resEmp = await axiosInstance.get(
           `${process.env.REACT_APP_API_URL}/employees/${email}`, // ✅ plural employees
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setEmployee(resEmp.data);
 
         // Fetch employee requests (if you have requests API)
-        const resReq = await axios.get(
+        const resReq = await axiosInstance.get(
           `${process.env.REACT_APP_API_URL}/employees/requests/${email}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
