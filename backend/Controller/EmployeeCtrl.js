@@ -31,6 +31,7 @@ exports.getEmployees = async (req, res) => {
 };
 
 // POST /api/employees
+const frontendUrl = "https://assesment-hrms-bhuvneshwari-f8oq.vercel.app";
 
 exports.addEmployee = async (req, res) => {
   try {
@@ -60,7 +61,8 @@ exports.addEmployee = async (req, res) => {
     });
 
     await employee.save();
-
+    res.status(201).json({ success: true, employee });
+    console.log("Saved Employee data", employee);
     // send email with password
     await sendMail(
       email,
@@ -71,10 +73,10 @@ exports.addEmployee = async (req, res) => {
        <p><b>Employee Code:</b> ${newCode}</p>
        <p><b>Employee Email:</b> ${email}</p>
        <p><b>Password:</b> ${autoPassword}</p>
-       <p>Please Login your Employee account </p>`
+       <p>Please login to your Employee account 
+    <a href="${frontendUrl}/login" target="_blank">here</a></p>`
     );
-
-    res.status(201).json({ success: true, employee });
+    console.log("Welcome email sent to", email);
   } catch (err) {
     console.error(err);
     if (err.code === 11000) {

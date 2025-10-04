@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./css/AddEmployeePage.css";
+import axiosInstance from "./axios";
 
 const departmentProjects = {
   IT: ["Website Revamp", "Backend API", "Server Migration"],
@@ -112,7 +112,7 @@ const AddEmployeePage = () => {
       const token = localStorage.getItem("authToken");
 
       // GET all employees to generate code
-      const res = await axios.get(`${API_URL}/employees`, {
+      const res = await axiosInstance.get(`${API_URL}/employees`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -123,13 +123,17 @@ const AddEmployeePage = () => {
       const newEmployee = { ...formData, code: newCode, password };
 
       // POST new employee
-      const response = await axios.post(`${API_URL}/employees`, newEmployee, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        timeout: 10000,
-      });
+      const response = await axiosInstance.post(
+        `${API_URL}/employees`,
+        newEmployee,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          // timeout: 50000,
+        }
+      );
 
       if (response.data.success) {
         alert(
@@ -152,7 +156,7 @@ const AddEmployeePage = () => {
       console.error("Backend Error:", error);
 
       // LocalStorage fallback
-      alert("Backend unavailable. Saving locally...");
+
       const employees = JSON.parse(localStorage.getItem("employees") || "[]");
       const newCode = generateEmpCode(employees);
       const password = generatePassword();
